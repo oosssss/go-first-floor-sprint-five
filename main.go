@@ -34,7 +34,11 @@ func (t Training) distance() float64 {
 // meanSpeed возвращает среднюю скорость бега или ходьбы.
 func (t Training) meanSpeed() float64 {
 	// вставьте ваш код ниже
-	return t.distance() / t.Duration.Hours()
+	if t.Duration.Hours() != 0 {
+		return t.distance() / t.Duration.Hours()
+	} else {
+		return 0
+	}
 }
 
 // Calories возвращает количество потраченных килокалорий на тренировке.
@@ -111,7 +115,15 @@ func (r Running) Calories() float64 {
 // Это переопределенный метод TrainingInfo() из Training.
 func (r Running) TrainingInfo() InfoMessage {
 	// вставьте ваш код ниже
-	return r.Training.TrainingInfo()
+	info := InfoMessage {
+		TrainingType: r.TrainingType,
+		Duration: r.Duration,
+		Distance: r.distance(),
+		Speed: r.meanSpeed(),
+		Calories: r.Calories(),
+	}
+	return info
+	//return r.Training.TrainingInfo()
 }
 
 // Константы для расчета потраченных килокалорий при ходьбе.
@@ -143,7 +155,15 @@ func (w Walking) Calories() float64 {
 // Это переопределенный метод TrainingInfo() из Training.
 func (w Walking) TrainingInfo() InfoMessage {
 	// вставьте ваш код ниже
-	return w.Training.TrainingInfo()
+	info := InfoMessage {
+		TrainingType: w.TrainingType,
+		Duration: w.Duration,
+		Distance: w.distance(),
+		Speed: w.meanSpeed(),
+		Calories: w.Calories(),
+	}
+	return info
+	//return w.Training.TrainingInfo()
 }
 
 // Константы для расчета потраченных килокалорий при плавании.
@@ -167,7 +187,11 @@ type Swimming struct {
 // Это переопределенный метод Calories() из Training.
 func (s Swimming) meanSpeed() float64 {
 	// вставьте ваш код ниже
-	return float64(s.LengthPool * s.CountPool) / MInKm / s.Duration.Hours()
+	if s.Duration.Hours() != 0 {
+		return float64(s.LengthPool * s.CountPool) / MInKm / s.Duration.Hours()
+	} else {
+		return 0
+	}
 }
 
 // Calories возвращает количество калорий, потраченных при плавании.
@@ -184,7 +208,15 @@ func (s Swimming) Calories() float64 {
 // Это переопределенный метод TrainingInfo() из Training.
 func (s Swimming) TrainingInfo() InfoMessage {
 	// вставьте ваш код ниже
-	return s.Training.TrainingInfo()
+	info := InfoMessage {
+		TrainingType: s.TrainingType,
+		Duration: s.Duration,
+		Distance: s.distance(),
+		Speed: s.meanSpeed(),
+		Calories: s.Calories(),
+	}
+	return info
+	//return s.Training.TrainingInfo()
 }
 
 // ReadData возвращает информацию о проведенной тренировке.
